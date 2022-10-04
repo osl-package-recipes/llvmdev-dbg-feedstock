@@ -46,4 +46,8 @@ jobs:
           ANACONDA_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         if: ${{ success() && (github.event_name == 'push' || github.event_name == 'schedule') }}
         run: |
-          anaconda --token $ANACONDA_TOKEN upload --user opensciencelabs --skip-existing /usr/share/miniconda/envs/llvmdev/conda-bld/linux-64/llvmdev-dbg*.tar.bz2
+          anaconda \
+            --token $ANACONDA_TOKEN upload \
+            --user opensciencelabs \
+            --skip-existing \
+            $(find ${CONDA}/envs/conda-build/conda-bld/ -name llvmdev-dbg*.tar.bz2)
